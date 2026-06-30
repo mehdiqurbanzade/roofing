@@ -52,6 +52,8 @@
   --bronze: #8B5A1F;
   --grey: #9CA3AB;
   --grey-dim: #6b7178;
+  --whatsapp: #25D366;
+  --whatsapp-deep: #1DA851;
 
   --font-display: 'Fraunces', Georgia, serif;
   --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
@@ -114,6 +116,9 @@ body{
   font-family: var(--font-body); font-weight: 700; font-size: 0.95rem;
   padding: 14px 26px; border-radius: 999px;
   transition: transform .35s var(--ease), box-shadow .35s var(--ease), background .35s var(--ease);
+  text-decoration: none;
+  cursor: pointer;
+  border: none;
 }
 .btn-primary{
   background: linear-gradient(135deg, var(--gold-soft), var(--gold-deep));
@@ -127,6 +132,13 @@ body{
   color: var(--paper);
 }
 .btn-ghost:hover{ background: rgba(255,255,255,0.1); transform: translateY(-3px); }
+.btn-whatsapp{
+  background: linear-gradient(135deg, var(--whatsapp), var(--whatsapp-deep));
+  color: #fff;
+  box-shadow: 0 10px 30px -8px rgba(37,211,102,0.45);
+}
+.btn-whatsapp:hover{ transform: translateY(-3px); box-shadow: 0 16px 36px -10px rgba(37,211,102,0.6); }
+.btn svg{ width: 18px; height: 18px; flex-shrink: 0; }
 
 /* ============ NAVIGATION ============ */
 .nav-wrap{
@@ -142,6 +154,8 @@ body{
 .nav-links{ display:flex; align-items:center; gap: 30px; }
 .nav-link{ font-size: .92rem; font-weight: 600; opacity: .85; transition: opacity .25s; }
 .nav-link:hover{ opacity:1; color: var(--gold); }
+.nav-actions{ display:flex; align-items:center; gap: 12px; }
+.nav-actions .btn{ padding: 10px 18px; font-size: 0.85rem; }
 
 /* ============ HERO ============ */
 .hero{
@@ -178,16 +192,54 @@ body{
 .why-item h3{ font-family: var(--font-display); font-size: 1.25rem; margin-bottom: 10px; }
 .why-item p{ color: var(--grey-dim); font-size: 0.95rem; }
 
-/* ============ CONTACT FORM ============ */
-.contact-section{ background: var(--panel); }
-.form-wrap{ max-width: 600px; margin: 40px auto 0; background: var(--panel-2); padding: 40px; border-radius: var(--radius); border: 1px solid var(--panel-border); }
-.form-group{ margin-bottom: 20px; }
-.form-group label{ display:block; font-size: 0.9rem; margin-bottom: 8px; color: var(--grey); font-weight: 600; }
-.form-group input, .form-group textarea{ width:100%; padding: 12px; background: var(--ink); border: 1px solid var(--panel-border); border-radius: 6px; color: var(--paper); font-family: inherit; }
-.form-group input:focus, .form-group textarea:focus{ outline: 1px solid var(--gold); }
+/* ============ CONTACT CTA ============ */
+.contact-section{ background: var(--panel); border-bottom: none; }
+.contact-cta-wrap{
+  max-width: 700px; margin: 50px auto 0; text-align:center;
+  background: linear-gradient(160deg, var(--panel-2), var(--panel));
+  border: 1px solid var(--panel-border); padding: 56px 40px; border-radius: var(--radius);
+}
+.contact-cta-wrap p{ color: var(--grey); margin-bottom: 32px; font-size: 1.02rem; }
+.contact-cta-buttons{ display:flex; gap: 18px; justify-content:center; flex-wrap: wrap; }
+.contact-cta-buttons .btn{ padding: 18px 32px; font-size: 1.05rem; }
 
 /* ============ FOOTER ============ */
 footer{ background: var(--ink); padding: 40px 0; text-align: center; border-top: 1px solid var(--panel-border); color: var(--grey); font-size: 0.9rem; }
+
+/* ============ RESPONSIVE / MOBILE ============ */
+@media (max-width: 860px){
+  .container{ padding: 0 18px; }
+  .section{ padding: 70px 0; }
+
+  .nav-links{ display:none; }
+  .nav{ flex-wrap: wrap; row-gap: 12px; }
+  .nav-actions{ width:100%; justify-content: stretch; gap: 10px; }
+  .nav-actions .btn{ flex:1; padding: 11px 12px; font-size: 0.82rem; }
+
+  .hero{ min-height: auto; padding: 120px 0 70px; text-align:center; }
+  .hero-inner{ max-width: 100%; }
+  .hero-sub{ margin-left:auto; margin-right:auto; }
+  .hero-ctas{ justify-content:center; }
+  .hero-ctas .btn{ flex: 1 1 auto; min-width: 0; }
+
+  .section-title{ max-width: 100%; }
+  .section-sub{ max-width: 100%; }
+  .section-head{ text-align:center; }
+
+  .services-grid, .why-grid{ grid-template-columns: 1fr; margin-top: 36px; }
+  .service-card, .why-item{ padding: 30px 24px; }
+
+  .contact-cta-wrap{ padding: 40px 22px; margin-top: 36px; }
+  .contact-cta-buttons{ flex-direction: column; align-items: stretch; }
+  .contact-cta-buttons .btn{ width: 100%; }
+}
+
+@media (max-width: 480px){
+  .hero-title{ font-size: clamp(2rem, 9vw, 2.6rem); }
+  .btn{ font-size: 0.88rem; padding: 13px 20px; }
+  .brand{ font-size: 1.05rem; }
+  .eyebrow{ font-size: 11.5px; }
+}
 </style>
 </head>
 
@@ -203,21 +255,37 @@ footer{ background: var(--ink); padding: 40px 0; text-align: center; border-top:
       <div class="nav-links">
         <a href="#services" class="nav-link">Services</a>
         <a href="#why" class="nav-link">Why Us</a>
-        <a href="#contact" class="nav-link">Get Estimate</a>
+        <a href="#contact" class="nav-link">Contact</a>
+      </div>
+      <div class="nav-actions">
+        <a href="https://wa.me/15550000000" target="_blank" rel="noopener" class="btn btn-whatsapp">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4a8.94 8.94 0 0 0-7.74 13.4L3 21l3.7-1.27a8.93 8.93 0 0 0 5.34 1.78A8.93 8.93 0 0 0 21 12.58a8.86 8.86 0 0 0-3.4-6.26ZM12.05 19.7a7.41 7.41 0 0 1-4.5-1.55l-.32-.2-3.18 1.1.99-3.32-.2-.34a7.45 7.45 0 0 1 12-9 7.4 7.4 0 0 1 2.18 5.25 7.46 7.46 0 0 1-6.97 8.06Zm4.08-5.58c-.22-.11-1.31-.65-1.52-.72-.2-.08-.35-.11-.5.11-.15.22-.57.72-.7.87-.13.15-.26.16-.48.06-.22-.11-.94-.35-1.79-1.1a6.7 6.7 0 0 1-1.24-1.55c-.13-.22-.01-.34.1-.45.1-.1.22-.26.33-.39.11-.13.15-.22.22-.37.07-.15.04-.28-.02-.39-.06-.11-.5-1.21-.68-1.66-.18-.43-.36-.37-.5-.38h-.43c-.15 0-.39.06-.6.28-.2.22-.78.76-.78 1.85s.8 2.14.91 2.29c.11.15 1.57 2.4 3.81 3.36.53.23.95.37 1.27.47.53.17 1.02.15 1.4.09.43-.06 1.31-.53 1.49-1.05.18-.51.18-.95.13-1.05-.05-.1-.2-.16-.42-.27Z"/></svg>
+          WhatsApp
+        </a>
+        <a href="tel:+15550000000" class="btn btn-primary">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C10.4 21 3 13.6 3 4.5a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.46.57 3.58a1 1 0 0 1-.25 1.01l-2.2 2.2Z"/></svg>
+          Call Now
+        </a>
       </div>
     </div>
   </div>
 
   <!-- ============ HERO SECTION ============ -->
   <section class="hero">
-    <div class="container id="hero-content"">
+    <div class="container">
       <div class="hero-inner">
         <div class="eyebrow"><span class="eyebrow-dot"></span>Licensed & Insured</div>
         <h1 class="hero-title">Premium Roof Replacement & <span class="text-accent">Storm Restoration</span></h1>
         <p class="hero-sub">Trusted by over 1,200+ homeowners. We deliver elite craftsmanship backed by a lifetime warranty. Protect your greatest asset today.</p>
         <div class="hero-ctas">
-          <a href="#contact" class="btn btn-primary">Get A Free Estimate</a>
-          <a href="#services" class="btn btn-ghost">Explore Services</a>
+          <a href="https://wa.me/15550000000" target="_blank" rel="noopener" class="btn btn-whatsapp">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4a8.94 8.94 0 0 0-7.74 13.4L3 21l3.7-1.27a8.93 8.93 0 0 0 5.34 1.78A8.93 8.93 0 0 0 21 12.58a8.86 8.86 0 0 0-3.4-6.26ZM12.05 19.7a7.41 7.41 0 0 1-4.5-1.55l-.32-.2-3.18 1.1.99-3.32-.2-.34a7.45 7.45 0 0 1 12-9 7.4 7.4 0 0 1 2.18 5.25 7.46 7.46 0 0 1-6.97 8.06Zm4.08-5.58c-.22-.11-1.31-.65-1.52-.72-.2-.08-.35-.11-.5.11-.15.22-.57.72-.7.87-.13.15-.26.16-.48.06-.22-.11-.94-.35-1.79-1.1a6.7 6.7 0 0 1-1.24-1.55c-.13-.22-.01-.34.1-.45.1-.1.22-.26.33-.39.11-.13.15-.22.22-.37.07-.15.04-.28-.02-.39-.06-.11-.5-1.21-.68-1.66-.18-.43-.36-.37-.5-.38h-.43c-.15 0-.39.06-.6.28-.2.22-.78.76-.78 1.85s.8 2.14.91 2.29c.11.15 1.57 2.4 3.81 3.36.53.23.95.37 1.27.47.53.17 1.02.15 1.4.09.43-.06 1.31-.53 1.49-1.05.18-.51.18-.95.13-1.05-.05-.1-.2-.16-.42-.27Z"/></svg>
+            Chat on WhatsApp
+          </a>
+          <a href="tel:+15550000000" class="btn btn-primary">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C10.4 21 3 13.6 3 4.5a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.46.57 3.58a1 1 0 0 1-.25 1.01l-2.2 2.2Z"/></svg>
+            Call Now
+          </a>
         </div>
       </div>
     </div>
@@ -276,30 +344,22 @@ footer{ background: var(--ink); padding: 40px 0; text-align: center; border-top:
   <!-- ============ CONTACT / CTA SECTION ============ -->
   <section id="contact" class="section contact-section">
     <div class="container">
-      <div class="section-head" style="text-align: center; margin-bottom: 20px;">
-        <div class="eyebrow"><span class="eyebrow-dot"></span>Free Quote</div>
-        <h2 class="section-title" style="margin: 0 auto;">Request Your Free Roof Inspection</h2>
+      <div class="section-head" style="text-align: center;">
+        <div class="eyebrow"><span class="eyebrow-dot"></span>Get In Touch</div>
+        <h2 class="section-title" style="margin: 0 auto;">Ready To Protect Your Roof?</h2>
       </div>
-      <div class="form-wrap">
-        <form action="#" method="POST" onsubmit="event.preventDefault(); alert('Estimate Request Sent!');">
-          <div class="form-group">
-            <label for="name">Full Name</label>
-            <input type="text" id="name" required placeholder="John Doe">
-          </div>
-          <div class="form-group">
-            <label for="email">Email Address</label>
-            <input type="email" id="email" required placeholder="john@example.com">
-          </div>
-          <div class="form-group">
-            <label for="phone">Phone Number</label>
-            <input type="tel" id="phone" required placeholder="(555) 000-0000">
-          </div>
-          <div class="form-group">
-            <label for="message">Project Details</label>
-            <textarea id="message" rows="4" placeholder="Tell us about your roofing needs..."></textarea>
-          </div>
-          <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 10px;">Submit Request</button>
-        </form>
+      <div class="contact-cta-wrap">
+        <p>Reach out instantly — message us on WhatsApp or give us a call. Our team responds fast, every day of the week.</p>
+        <div class="contact-cta-buttons">
+          <a href="https://wa.me/15550000000" target="_blank" rel="noopener" class="btn btn-whatsapp">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.6 6.32A8.86 8.86 0 0 0 12.05 4a8.94 8.94 0 0 0-7.74 13.4L3 21l3.7-1.27a8.93 8.93 0 0 0 5.34 1.78A8.93 8.93 0 0 0 21 12.58a8.86 8.86 0 0 0-3.4-6.26ZM12.05 19.7a7.41 7.41 0 0 1-4.5-1.55l-.32-.2-3.18 1.1.99-3.32-.2-.34a7.45 7.45 0 0 1 12-9 7.4 7.4 0 0 1 2.18 5.25 7.46 7.46 0 0 1-6.97 8.06Zm4.08-5.58c-.22-.11-1.31-.65-1.52-.72-.2-.08-.35-.11-.5.11-.15.22-.57.72-.7.87-.13.15-.26.16-.48.06-.22-.11-.94-.35-1.79-1.1a6.7 6.7 0 0 1-1.24-1.55c-.13-.22-.01-.34.1-.45.1-.1.22-.26.33-.39.11-.13.15-.22.22-.37.07-.15.04-.28-.02-.39-.06-.11-.5-1.21-.68-1.66-.18-.43-.36-.37-.5-.38h-.43c-.15 0-.39.06-.6.28-.2.22-.78.76-.78 1.85s.8 2.14.91 2.29c.11.15 1.57 2.4 3.81 3.36.53.23.95.37 1.27.47.53.17 1.02.15 1.4.09.43-.06 1.31-.53 1.49-1.05.18-.51.18-.95.13-1.05-.05-.1-.2-.16-.42-.27Z"/></svg>
+            Message Us on WhatsApp
+          </a>
+          <a href="tel:+15550000000" class="btn btn-primary">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.01-.24c1.12.37 2.33.57 3.58.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C10.4 21 3 13.6 3 4.5a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.46.57 3.58a1 1 0 0 1-.25 1.01l-2.2 2.2Z"/></svg>
+            Call Now: (555) 000-0000
+          </a>
+        </div>
       </div>
     </div>
   </section>
